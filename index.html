@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>AlexaOps Controlling AWS using Alexa</title>
+
+		<meta name="description" content="Tutorial for creating an Alexa skill that interacts with AWS">
+		<meta name="author" content="Chris Lennon">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="thirdparty/reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="thirdparty/reveal.js/css/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="thirdparty/reveal.js/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'thirdparty/reveal.js/css/print/pdf.css' : 'thirdparty/reveal.js/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="thirdparty/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Horizontal slides sections -->
+			<div class="slides">
+                <!-- Title -->
+				<section>
+					<h1>AlexaOps</h1>
+					<h3>Controlling AWS using Alexa</h3>
+					<p>
+						<small>Created by <a href="https://github.com/chrislennon">Chris Lennon</a> using <a href="https://github.com/hakimel/reveal.js">reveal.js</a></small>
+                    </p>
+                    <p>
+						<small>Source code available for both <a href="https://github.com/chrislennon/AlexaOps">control code</a> and the <a href="https://github.com/chrislennon/AlexaOps-Presentation">presentation</a></small>
+					</p>
+				</section>
+
+                <!-- Intro -->
+				<section>
+					<h2>Introduction</h2>
+					<p>
+						This presentation is to guide you through the creation of an application(skill) for the Alexa platform.
+                    </p>
+                    <p>
+					    This presentation will give you an overview of (1) the Alexa platform, (2) the usage of a skill to control AWS as an example usecase.
+					</p>
+				</section>
+
+                <!-- Alexa Overview - nested -->
+				<section>
+					<section>
+						<h2>An Overview of Alexa</h2>
+						<p>This section is designed to give an overview of the Alexa ecosystem.</p>
+						<p>A non technical overview of components.</p>
+						<br>
+					</section>
+					<section>
+                        <h2>Alexa, Say Hello.</h2>
+                        <ul>
+                            <li>Voice and interaction model service by Amazon launched at the end of 2014.</li>
+                            <li>Hardware devices available from Amazon & third party integrations.</li>
+                            <li>Application operate around a skill/app model.</li>
+                        </ul>
+                        <br>
+                        <a href="#/2">
+							<img data-src="images/content/echo-lineup.png" alt="Lineup">
+						</a>
+					</section>
+					<section>
+						<h2>Example of skills</h2>
+                        <p>That's it, time to go back up.</p>
+                        <ul>
+                            <li>x.</li>
+                            <li>y.</li>
+                            <li>z.</li>
+                        </ul>
+						<br>
+						<a href="#/2">
+							<span style="font-size: 0.5em;">↑ Back To Top</span>
+						</a>
+					</section>
+                </section>
+
+                <!-- Skill Overview - nested -->
+				<section>
+                    <section>
+                        <h2>Overview of a skill</h2>
+                        <p>
+                            This section gives an overview of the components in a skill.
+                        </p>
+                    </section>
+                    <section>
+                        <h2>The Flow.</h2>
+                        <a href="#/2">
+							<img data-src="images/content/echo-lineup.png" alt="Lineup">
+                        </a>
+                        <br>
+                        <ol>
+                            <li>Definition of Intent.</li>
+                            <li>Trigger function.</li>
+                            <li>Do action / Get data.</li>
+                            <li>Respond to Alexa service with speech.</li>
+                        </ol>
+					</section>
+				</section>
+
+                <!-- Setup - nested -->
+				<section>
+                    <section>
+                        <h2>Setup a skill</h2>
+                        <p>
+                            This section walks through the creation of a skill.
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Requirements</h2>
+                        <p>The example skill has the following requirements.</p>
+                        <ul>
+                            <li><a href="https://developer.amazon.com/edw/home.html#/skills">Alexa Developer</a> account</li>
+                            <li>AWS account and command line access</li>
+                            
+                            <li>AlexaOps Example Code</li>
+                            <ul>
+                                <li>Source on <a href="https://github.com/chrislennon/AlexaOps">GitHub</a></li>
+                                <li>Functions written in Python</li>
+                                <li>Uses <a href="https://serverless.com">serverless framework</a> (NodeJS) for deployment</li>
+                            </ul>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>AWS CLI</h2>
+                        <p>We need to <a href="https://docs.aws.amazon.com/cli/latest/userguide/installing.html">install</a> the AWS CLI
+                            and <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">configure</a> it.</p>
+                        <pre>
+                            <code data-trim data-noescape>
+                                aws iam get-user
+
+                                {
+                                    "User": {
+                                        ...
+                                    }
+                                }
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>Create a new skill</h2>
+                        <p>Naming things is hard...</p>
+                        <ul>
+                            <li>Invocation name - <a href="https://developer.amazon.com/docs/custom-skills/choose-the-invocation-name-for-a-custom-skill.html">recommendations</a></li>
+                            <ul>
+                                <li>Alexa, ask <span style="color:orange;">Cloud Control</span> for development status</li>
+                                <li>Alexa, What is the status of development using <span style="color:orange;">Cloud Control</span></li>
+                            </ul>
+                            <li>Language - Setup each locale indeptendantly</li>
+                            <li>Skill ID - <span style="color:red;">amzn1.ask.skill.98a0d5f4-56e6-42bb-9168-63d4235dee83</span></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Quickstart</h2>
+                        <p>Update <span style="color:red;">ALEXA_SKILL_ID</span> variable in serverless.yml</p>
+                        <p>If using the <a>example code</a> you are good to go.</p>
+                        <pre>
+                            <code data-trim data-noescape>
+                                serverless deploy
+                            </code>
+                        </pre>
+                        <p>But what did we actually deploy?...</p>
+
+                        <br>
+						<a href="#/4">
+							<span style="font-size: 0.5em;">↑ Back To Top</span>
+						</a>
+                    </section>
+                </section>
+
+                <!-- Interacting - nested -->
+                <section>
+                    <section>
+                        <h2>Interacting with Alexa</h2>
+                    </section>
+                    <section>
+                        <h2>Request from Alexa</h2>
+                                
+                        <p>A JSON payload following a particular <a href="https://developer.amazon.com/docs/custom-skills/request-and-response-json-reference.html#request-body-syntax" target="_blank">format</a></p>
+                        <pre>
+                            <code data-trim data-noescape>
+                                {
+                                    ...
+                                    "request": {
+                                        "type": "IntentRequest",
+                                        "intent": {
+                                            "name": "GetServices",
+                                            "slots": {
+                                                "Environment": {
+                                                    "name": "Environment",
+                                                    "value": "development"
+                                                }
+                                            }
+                                        }
+                                    }
+                                    ...
+                                }
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                            <h2>TODO - Something useful</h2>        
+                            <p>... this bit is kind of up to you, example in a minute...</p>
+                    </section>
+                    <section>
+                        <h2>Responding to Alexa</h2>
+                        
+                        <p>Actual speech is written in Speech Synthesis Markup Language (<a href="https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html">SSML</a>)</p>
+                        <pre>
+                            <code data-trim>
+                                <speak>
+                                    I want to tell you a secret. 
+                                    <amazon:effect name="whispered">I am not a real human.</amazon:effect>.
+                                    Can you believe it?
+                                </speak>
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>Responding to Alexa ... pt2</h2>   
+                        <p>A JSON payload following a particular <a href="https://developer.amazon.com/docs/custom-skills/request-and-response-json-reference.html#response-body-syntax" target="_blank">format</a></p>
+                        <pre>
+                            <code data-trim data-noescape>
+                                {
+                                    ...
+                                    "response": {
+                                        "outputSpeech": {
+                                            "type": "PlainText",
+                                            "text": "Plain text string to speak",
+                                            "ssml": "<speak>SSML text string to speak</speak>"
+                                        },
+                                        "card": {
+                                            "type": "Standard",
+                                            "title": "Title of the card",
+                                            "content": "Content of a simple card",
+                                            "text": "Text content for a standard card",
+                                            "image": {
+                                                "smallImageUrl": "https://url-to-small-card-image...",
+                                                "largeImageUrl": "https://url-to-large-card-image..."
+                                            }
+                                        },
+                                        "reprompt": {
+                                            "outputSpeech": {
+                                                "type": "PlainText",
+                                                "text": "Plain text string to speak",
+                                                "ssml": "<speak>SSML text string to speak</speak>"
+                                            }
+                                        }
+                                    }
+                                    ...
+                                }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>But what about the middle part?</p>
+                        <p class="fragment" data-fragment-index="1">... What can I make it do?</p>
+                    </section>
+
+                    <section>
+                        <p>Whatever you want!</p>
+                        <p class="fragment" data-fragment-index="1">My example ties uses Lambda to control AWS</p>
+
+                        <br>
+						<a href="#/4">
+							<span style="font-size: 0.5em;">↑ Back To Top</span>
+						</a>
+                    </section>
+                </section>
+
+                <!-- AWS Control - nested -->
+                <section>
+                    <section>
+                        <h2>AlexaOps</h2>        
+                        <p>Running the example</p>
+                        <p>Creating: 'Alexa, list development servers'</p>
+                    </section>
+                    <section>
+                        <h2>Create Alexa Intent</h2>
+                        <ul>
+                            <li>Open the skill builder</li>
+                            <li>Create new intent</li>
+                            <li>Populate example phrases</li>
+                            <li>Customise slots</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Pick up the request</h2>
+                        <p></p>
+                        <pre>
+                            <code class="python" data-trim data-noescape>
+                                def lambda_handler(event, context):
+                                    if (event["session"]["application"]["applicationId"] !=
+                                            os.environ.get('ALEXA_SKILL_ID')):
+                                        raise ValueError("Invalid Application ID")
+                                    
+                                    if event["request"]["type"] == "IntentRequest":
+                                        ...
+                                    if event["request"]["type"] == "LaunchRequest":
+                                        ...
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>Route the request</h2>
+                        <p></p>
+                        <pre>
+                            <code class="python" data-trim data-noescape>
+                                
+                                    if event["request"]["intent"]["name"] == "GetServices"
+                                        return get_service_status(event["request"]["intent"]["slots"])
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>Action the request</h2>
+                        <p></p>
+                        <pre>
+                            <code class="python" data-trim data-noescape>
+                            ec2_resource = boto3.resource('ec2')
+                            
+                            def get_service_status(slots):
+                                filters = [{
+                                    'Name': name,
+                                    'Values': [slots['environment']['name']]
+                                }]
+
+                                instances = ec2_resource.instances.filter(Filters=filters)
+
+                                for instance in instances:
+                                    if instance.state['Code'] == 16:
+                                        online_instances.append(instance.id)
+                                    else:
+                                        offline_instances.append(instance.id)
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>Build a response</h2>
+                        <p>Grammar is hard when crafting responses manually.</p>
+                        <ul style="text-align:left; display: block;">
+                            <li>number of server(s)</li>
+                            <li>they/it is online</li>
+                        </ul>
+                        <br>
+                        <p>But eventually...</p>
+                        <pre>
+                            <code class="html" data-trim>
+                            {
+                                ...
+                                "ssml" : "<speak>There are 2 development servers online.</speak>"
+                                ...
+                            }
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h2>Testing it all together</h2>
+                        <p class="fragment" data-fragment-index="0">Alexa, How many development servers are running?</p>
+                        <p class="fragment" data-fragment-index="1">Did you get a response?</p>
+                        <br>
+                        <p class="fragment" data-fragment-index="2">Did something go wrong?</p>
+                        <p class="fragment" data-fragment-index="3">We have a few places to debug:</p>
+                        <ul class="fragment" data-fragment-index="4">
+                            <li>Your own appication logs - did you fire your function?</li>
+                            <li>When using Lambda you can check results in <a href="https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1#logs:">CloudWatch</a></li>
+                        </ul>
+                        <br>
+                        <a href="#/4">
+                            <span style="font-size: 0.5em;">↑ Back To Top</span>
+                        </a>
+                    </section>
+                </section>
+			</div>
+
+		</div>
+
+		<script src="thirdparty/reveal.js/lib/js/head.min.js"></script>
+		<script src="thirdparty/reveal.js/js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'thirdparty/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'thirdparty/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'thirdparty/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'thirdparty/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'thirdparty/reveal.js/plugin/search/search.js', async: true },
+					{ src: 'thirdparty/reveal.js/plugin/zoom-js/zoom.js', async: true },
+					{ src: 'thirdparty/reveal.js/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
