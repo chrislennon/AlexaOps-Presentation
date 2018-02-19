@@ -1,77 +1,77 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-		<title>AlexaOps Controlling AWS using Alexa</title>
+        <title>AlexaOps Controlling AWS using Alexa</title>
 
-		<meta name="description" content="Tutorial for creating an Alexa skill that interacts with AWS">
-		<meta name="author" content="Chris Lennon">
+        <meta name="description" content="Tutorial for creating an Alexa skill that interacts with AWS">
+        <meta name="author" content="Chris Lennon">
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="thirdparty/reveal.js/css/reveal.css">
-		<link rel="stylesheet" href="thirdparty/reveal.js/css/theme/black.css" id="theme">
+        <link rel="stylesheet" href="thirdparty/reveal.js/css/reveal.css">
+        <link rel="stylesheet" href="thirdparty/reveal.js/css/theme/black.css" id="theme">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="thirdparty/reveal.js/lib/css/zenburn.css">
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="thirdparty/reveal.js/lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'thirdparty/reveal.js/css/print/pdf.css' : 'thirdparty/reveal.js/css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'thirdparty/reveal.js/css/print/pdf.css' : 'thirdparty/reveal.js/css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
 
-		<!--[if lt IE 9]>
-		<script src="thirdparty/reveal.js/lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+        <!--[if lt IE 9]>
+        <script src="thirdparty/reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
 
-	<body>
+    <body>
 
-		<div class="reveal">
+        <div class="reveal">
 
-			<!-- Horizontal slides sections -->
-			<div class="slides">
+            <!-- Horizontal slides sections -->
+            <div class="slides">
                 <!-- Title -->
-				<section>
-					<h1>AlexaOps</h1>
-					<h3>Controlling AWS using Alexa</h3>
-					<p>
-						<small>Created by <a href="https://github.com/chrislennon">Chris Lennon</a> using <a href="https://github.com/hakimel/reveal.js">reveal.js</a></small>
+                <section>
+                    <h1>AlexaOps</h1>
+                    <h3>Controlling AWS using Alexa</h3>
+                    <p>
+                        <small>Created by <a href="https://github.com/chrislennon">Chris Lennon</a> using <a href="https://github.com/hakimel/reveal.js">reveal.js</a></small>
                     </p>
                     <p>
-						<small>Source code available for both <a href="https://github.com/chrislennon/AlexaOps">control code</a> and the <a href="https://github.com/chrislennon/AlexaOps-Presentation">presentation</a></small>
-					</p>
-				</section>
+                        <small>Source code available for both <a href="https://github.com/chrislennon/AlexaOps">control code</a> and the <a href="https://github.com/chrislennon/AlexaOps-Presentation">presentation</a></small>
+                    </p>
+                </section>
 
                 <!-- Intro -->
-				<section>
-					<h2>Introduction</h2>
-					<p>
-						This presentation is to guide you through the creation of an application(skill) for the Alexa platform.
+                <section>
+                    <h2>Introduction</h2>
+                    <p>
+                        This presentation is to guide you through the creation of an application(skill) for the Alexa platform.
                     </p>
                     <p>
-					    This presentation will give you an overview of (1) the Alexa platform, (2) the usage of a skill to control AWS as an example usecase.
-					</p>
-				</section>
+                        This presentation will give you an overview of (1) the Alexa platform, (2) the usage of a skill to control AWS as an example usecase.
+                    </p>
+                </section>
 
                 <!-- Alexa Overview - nested -->
-				<section>
-					<section>
-						<h2>An Overview of Alexa</h2>
-						<p>This section is designed to give an overview of the Alexa ecosystem.</p>
-						<p>A non technical overview of components.</p>
-						<br>
-					</section>
-					<section>
+                <section>
+                    <section>
+                        <h2>An Overview of Alexa</h2>
+                        <p>This section is designed to give an overview of the Alexa ecosystem.</p>
+                        <p>A non technical overview of components.</p>
+                        <br>
+                    </section>
+                    <section>
                         <h2>Alexa, Say Hello.</h2>
                         <ul>
                             <li>Voice and interaction model service by Amazon launched at the end of 2014.</li>
@@ -80,26 +80,26 @@
                         </ul>
                         <br>
                         <a href="#/2">
-							<img data-src="images/content/echo-lineup.png" alt="Lineup">
-						</a>
-					</section>
-					<section>
-						<h2>Example of skills</h2>
+                            <img data-src="images/content/echo-lineup.png" alt="Lineup">
+                        </a>
+                    </section>
+                    <section>
+                        <h2>Example of skills</h2>
                         <p>That's it, time to go back up.</p>
                         <ul>
                             <li>x.</li>
                             <li>y.</li>
                             <li>z.</li>
                         </ul>
-						<br>
-						<a href="#/2">
-							<span style="font-size: 0.5em;">↑ Back To Top</span>
-						</a>
-					</section>
+                        <br>
+                        <a href="#/2">
+                            <span style="font-size: 0.5em;">↑ Back To Top</span>
+                        </a>
+                    </section>
                 </section>
 
                 <!-- Skill Overview - nested -->
-				<section>
+                <section>
                     <section>
                         <h2>Overview of a skill</h2>
                         <p>
@@ -109,7 +109,7 @@
                     <section>
                         <h2>The Flow.</h2>
                         <a href="#/2">
-							<img data-src="images/content/echo-lineup.png" alt="Lineup">
+                            <img data-src="images/content/echo-lineup.png" alt="Lineup">
                         </a>
                         <br>
                         <ol>
@@ -118,11 +118,11 @@
                             <li>Do action / Get data.</li>
                             <li>Respond to Alexa service with speech.</li>
                         </ol>
-					</section>
-				</section>
+                    </section>
+                </section>
 
                 <!-- Setup - nested -->
-				<section>
+                <section>
                     <section>
                         <h2>Setup a skill</h2>
                         <p>
@@ -185,9 +185,9 @@
                         <p>But what did we actually deploy?...</p>
 
                         <br>
-						<a href="#/4">
-							<span style="font-size: 0.5em;">↑ Back To Top</span>
-						</a>
+                        <a href="#/4">
+                            <span style="font-size: 0.5em;">↑ Back To Top</span>
+                        </a>
                     </section>
                 </section>
 
@@ -286,9 +286,9 @@
                         <p class="fragment" data-fragment-index="1">My example ties uses Lambda to control AWS</p>
 
                         <br>
-						<a href="#/4">
-							<span style="font-size: 0.5em;">↑ Back To Top</span>
-						</a>
+                        <a href="#/4">
+                            <span style="font-size: 0.5em;">↑ Back To Top</span>
+                        </a>
                     </section>
                 </section>
 
@@ -395,37 +395,37 @@
                         </a>
                     </section>
                 </section>
-			</div>
+            </div>
 
-		</div>
+        </div>
 
-		<script src="thirdparty/reveal.js/lib/js/head.min.js"></script>
-		<script src="thirdparty/reveal.js/js/reveal.js"></script>
+        <script src="thirdparty/reveal.js/lib/js/head.min.js"></script>
+        <script src="thirdparty/reveal.js/js/reveal.js"></script>
 
-		<script>
+        <script>
 
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'thirdparty/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'thirdparty/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'thirdparty/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'thirdparty/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'thirdparty/reveal.js/plugin/search/search.js', async: true },
-					{ src: 'thirdparty/reveal.js/plugin/zoom-js/zoom.js', async: true },
-					{ src: 'thirdparty/reveal.js/plugin/notes/notes.js', async: true }
-				]
-			});
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'thirdparty/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'thirdparty/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'thirdparty/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'thirdparty/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'thirdparty/reveal.js/plugin/search/search.js', async: true },
+                    { src: 'thirdparty/reveal.js/plugin/zoom-js/zoom.js', async: true },
+                    { src: 'thirdparty/reveal.js/plugin/notes/notes.js', async: true }
+                ]
+            });
 
-		</script>
+        </script>
 
-	</body>
+    </body>
 </html>
