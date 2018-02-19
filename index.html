@@ -63,7 +63,7 @@
                     </p>
                 </section>
 
-                <!-- Alexa Overview - nested -->
+                <!-- Alexa Overview -->
                 <section>
                     <section>
                         <h2>An Overview of Alexa</h2>
@@ -85,12 +85,22 @@
                     </section>
                     <section>
                         <h2>Example of skills</h2>
-                        <p>That's it, time to go back up.</p>
+                        <p>Builtin</p>
                         <ul>
-                            <li>x.</li>
-                            <li>y.</li>
-                            <li>z.</li>
+                            <li>Alexa, set a timer for 5 minutes.</li>
+                            <li>Alexa, add bread to my shopping list.</li>
+                            <li>Alexa, what is the weather tomorrow?</li>
                         </ul>
+                    </section>
+                    <section>
+                        <p>Skill store</p>
+                        <ul>
+                            <li>Alexa, play music on Spotify.</li>
+                            <li>Alexa, turn off the bedroom lights.</li>
+                            <li>Alexa, ask Gordon Ramsay what he thinks of my food.</li>
+                            <li>Alexa, how do I craft a torch using Minecraft helper?</li>
+                        </ul>
+                        <p>Build your own...</p>
                         <br>
                         <a href="#/2">
                             <span style="font-size: 0.5em;">↑ Back To Top</span>
@@ -98,7 +108,7 @@
                     </section>
                 </section>
 
-                <!-- Skill Overview - nested -->
+                <!-- Skill Overview -->
                 <section>
                     <section>
                         <h2>Overview of a skill</h2>
@@ -122,7 +132,7 @@
                     </section>
                 </section>
 
-                <!-- Setup - nested -->
+                <!-- Setup -->
                 <section>
                     <section>
                         <h2>Setup a skill</h2>
@@ -165,13 +175,14 @@
                         <h2>Create a new skill</h2>
                         <p>Naming things is hard...</p>
                         <ul>
-                            <li>Invocation name - <a href="https://developer.amazon.com/docs/custom-skills/choose-the-invocation-name-for-a-custom-skill.html">recommendations</a></li>
+                            <li>Invocation name</li>
                             <ul>
                                 <li>Alexa, ask <span style="color:orange;">Cloud Control</span> for development status</li>
                                 <li>Alexa, What is the status of development using <span style="color:orange;">Cloud Control</span></li>
                             </ul>
-                            <li>Language - Setup each locale indeptendantly</li>
+                            <li>Language - Setup each locale independently</li>
                             <li>Skill ID - <span style="color:red;">amzn1.ask.skill.98a0d5f4-56e6-42bb-9168-63d4235dee83</span></li>
+                            <li><a href="https://developer.amazon.com/docs/custom-skills/choose-the-invocation-name-for-a-custom-skill.html">Alexa Docs</a> - the good and the bad</li>
                         </ul>
                     </section>
                     <section>
@@ -192,7 +203,7 @@
                     </section>
                 </section>
 
-                <!-- Interacting - nested -->
+                <!-- Interacting -->
                 <section>
                     <section>
                         <h2>Interacting with Alexa</h2>
@@ -287,13 +298,13 @@
                         <p class="fragment" data-fragment-index="1">My example ties uses Lambda to control AWS</p>
 
                         <br>
-                        <a href="#/4">
+                        <a href="#/5" class="fragment" data-fragment-index="1">
                             <span style="font-size: 0.5em;">↑ Back To Top</span>
                         </a>
                     </section>
                 </section>
 
-                <!-- AWS Control - nested -->
+                <!-- AWS Control -->
                 <section>
                     <section>
                         <h2>AlexaOps</h2>        
@@ -301,34 +312,84 @@
                         <p>Creating: 'Alexa, list development servers'</p>
                     </section>
                     <section>
-                        <h2>Create Alexa Intent</h2>
+                        <h2>Create First Intent</h2>
+                        <ol>
+                            <li>Open skill in the <a href="https://developer.amazon.com/alexa/console/ask/build">skill builder</a></li>
+                            <li>Create a skill - mentioned <a href="#/4/3">earlier</a></li>
+                        </ol>
+                    </section>
+                    <section>
+                        <h2>Create First Intent... pt2</h2>
+                        <p>Create a slot type</p>
                         <ul>
-                            <li>Open the skill builder</li>
-                            <li>Create new intent</li>
-                            <li>Populate example phrases</li>
-                            <li>Customise slots</li>
+                            <li>Create new entry in 'Slot Types'</li>
+                            <li>Call it <span style='color:orange;'>Environments</span></li>
+                            <li>Add expected values: <span style='color:orange;'>development</span>, <span style='color:orange;'>production</span></li>
                         </ul>
                     </section>
                     <section>
+                        <h2>Create First Intent... pt3</h2>
+                        <p>Setup the intent</p>
+                        <ul>
+                            <li>Create a new intent called <span style='color:orange;'>GetServices</span></li>
+                            <li>Create a new intent slot called <span style='color:orange;'>env</span> of type <span style='color:orange;'>Environments</span> </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Create First Intent... pt4</h2>
+                        <p>Populate example phrases</p>
+                        <ul>
+                            <li>How many <span style='color:orange;'>{env}</span> servers are running</li>
+                            <li>What is the status of the <span style='color:orange;'>{env}</span> environment</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Create Lambda Function</h2>
+                        <p>Create a new blank function</p>
+                        <ul>
+                            <li>Name it <span style='color:orange;'>AlexaAWSControl</span></li>
+                            <li>Pick a runtime - For this example <span style='color:orange;'>python</span></li>
+                            <li>Create a new role from the <span style='color:orange;'>Basic Edge Lambda permissions</span> template</li>
+                            <li>Click 'Create Function'</li>
+                            <li>Add a trigger of type <span style='color:orange;'>Alexa Skills Kit</span></li>
+                        </ul>
+                        <p>The above is what <span style="color:red;">serverless.yaml</span> handles for us.</p>
+                    </section>
+                    <section>
+                            <h2>Link Lambda and Alexa</h2>
+                            <p>Two points to connect</p>
+                            <ul>
+                                <li>In the Alexa skill config add the Lambda ARN:</li>
+                                <ul>
+                                    <li><span style='color:orange;'>arn:aws:lambda:eu-west-1:6766234252:function:AlexaAWSControl</span></li>
+                                </ul>
+                                <li>In Lambda add the <span style='color:red;'>ALEXA_SKILL_ID</span> environment variable</li>
+                                <ul>
+                                    <li><span style='color:orange;'>amzn1.ask.skill.97a0d6f3-48f6-54cb-3049-64e46e5ffe81</span></li>
+                                </ul>
+                            </ul>
+                        </section>
+                    <section>
                         <h2>Pick up the request</h2>
-                        <p></p>
+                        <p>Basic structure of function</p>
                         <pre>
                             <code class="python" data-trim data-noescape>
-                                def lambda_handler(event, context):
+                                def handler(event, context):
                                     if (event["session"]["application"]["applicationId"] !=
                                             os.environ.get('ALEXA_SKILL_ID')):
                                         raise ValueError("Invalid Application ID")
-                                    
-                                    if event["request"]["type"] == "IntentRequest":
-                                        ...
                                     if event["request"]["type"] == "LaunchRequest":
                                         ...
+                                    if event["request"]["type"] == "IntentRequest":
+                                        ...
+                                   
                             </code>
                         </pre>
                     </section>
                     <section>
                         <h2>Route the request</h2>
-                        <p></p>
+                        <p>Assuming we are handling an <span style='color:orange;'>IntentRequest</span></p>
                         <pre>
                             <code class="python" data-trim data-noescape>
                                 
@@ -336,10 +397,11 @@
                                         return get_service_status(event["request"]["intent"]["slots"])
                             </code>
                         </pre>
+                        <p>Pass the slot data to a function basaed on the intent name.</p>
                     </section>
                     <section>
                         <h2>Action the request</h2>
-                        <p></p>
+                        <p>Query AWS using <a href="http://boto3.readthedocs.io/en/latest/index.html">boto3</a> (built into Lambda)</p>
                         <pre>
                             <code class="python" data-trim data-noescape>
                             ec2_resource = boto3.resource('ec2')
@@ -359,16 +421,21 @@
                                         offline_instances.append(instance.id)
                             </code>
                         </pre>
+                        
                     </section>
                     <section>
-                        <h2>Build a response</h2>
-                        <p>Grammar is hard when crafting responses manually.</p>
-                        <ul style="text-align:left; display: block;">
-                            <li>number of server(s)</li>
-                            <li>they/it is online</li>
+                        <h2>A word on permissions</h2>
+                        <p>The previous function would need the <span style='color:orange;'>AmazonEC2ReadOnlyAccess</span> policy to be successful.</p>
+                        <ul>
+                            <li>Policies can be added to the role we created for this function</li>
+                            <li>Please dont just give it root...</li>
                         </ul>
-                        <br>
-                        <p>But eventually...</p>
+                        
+                    </section>
+                    
+                    <section>
+                        <h2>Build a response</h2>
+                        <p>The goal is to respond with a SSML string.</p>
                         <pre>
                             <code class="html" data-trim>
                             {
@@ -378,18 +445,27 @@
                             }
                             </code>
                         </pre>
+                        <p>Considerations to grammar:</p>
+                        <ul style="text-align:left; display: block;">
+                                <li>number of server(s)</li>
+                                <li>they/it is/are online</li>
+                            </ul>
+    
                     </section>
                     <section>
-                        <h2>Testing it all together</h2>
-                        <p class="fragment" data-fragment-index="0">Alexa, How many development servers are running?</p>
-                        <p class="fragment" data-fragment-index="1">Did you get a response?</p>
-                        <br>
-                        <p class="fragment" data-fragment-index="2">Did something go wrong?</p>
-                        <p class="fragment" data-fragment-index="3">We have a few places to debug:</p>
-                        <ul class="fragment" data-fragment-index="4">
-                            <li>Your own appication logs - did you fire your function?</li>
-                            <li>When using Lambda you can check results in <a href="https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1#logs:">CloudWatch</a></li>
+                        <h2>Testing</h2>
+                        <p>Many places to test!</p>
+                        <ul>
+                            <li>SSML Speech Simulator - In the 'Test' of Skill Builder</li>
+                            <li>Function logs - Your app or <a href="https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1#logs:">CloudWatch</a> for Lambda</li>
+                            <li>Alexa app or <a href="https://alexa.amazon.com">webapp</a></li>
+                            <li>Serverless local test and Lambda online test</li>
                         </ul>
+                        <pre>
+                            <code class="bash" data-trim>
+                                serverless invoke local --function functionName -p test/data.json
+                            </code>
+                        </pre>
                         <br>
                         <a href="#/4">
                             <span style="font-size: 0.5em;">↑ Back To Top</span>
